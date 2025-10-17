@@ -1,0 +1,64 @@
+sudo raspi-config
+
+#https://forums.adafruit.com/viewtopic.php?f=47&t=122926&p=629573#p629573 for installer
+sudo apt-get install screen
+#https://github.com/adafruit/Adafruit-PiTFT-Helper
+sudo mkdir /mnt/sda1
+sudo mount /dev/sda1 /mnt/sda1
+#https://gist.github.com/etes/aa76a6e9c80579872e5f
+#http://weworkweplay.com/play/automatically-connect-a-raspberry-pi-to-a-wifi-network/
+sudo nano /etc/network/interfaces
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+sudo nano /boot/config.txt
+sudo reboot
+#set up swap drive: https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04
+
+sudo apt-get install -y build-essential libc6-dev
+sudo apt-get install -y libncurses5-dev libncursesw5-dev libreadline6-dev
+sudo apt-get install -y libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev
+sudo apt-get install -y libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
+cd $HOME
+wget https://www.python.org/ftp/python/3.5.4/Python-3.5.4.tgz
+tar -zxvf Python-3.5.4.tgz
+cd Python-3.5.4
+# 3 min 13 s, fpectl necessary for debian/raspian
+sudo ./configure --with-fpectl --enable-optimizations > configure.log ; sudo make -j4 > make.log ; sudo make install > install.log
+sudo ./configure --with-fpectl > configure.log ; sudo make -j4 > make.log ; sudo make install > install.log    
+# Let's use 4 threads
+# 8 min 29 s
+#sudo make -j4        
+# ~ 4 min  
+#sudo make install 
+cd ..
+sudo rm -fr ./Python-3.5.2*
+# upgrade:
+#https://www.piwheels.hostedpi.com/index.html
+sudo nano /etc/pip.conf 
+
+sudo pip3 install -U pip
+sudo pip3 install -U setuptools
+
+sudo pip3 install virtualenv
+virtualenv dev
+source ~/dev/bin/activate
+
+pip3 install numpy scipy==1.0.0 scikit-learn dlib opencv-python Pillow six picamera imutils matplotlib
+pip3 install "tensorflow-1.5.0-cp35-none-linux_armv7l.whl"
+	
+sudo apt-get autoremove opencv-doc opencv-data libopencv-dev libopencv2.4-java libopencv2.4-jni python-opencv libopencv-core2.4 libopencv-gpu2.4 libopencv-ts2.4 libopencv-photo2.4 libopencv-contrib2.4 libopencv-imgproc2.4 libopencv-superres2.4 libopencv-stitching2.4 libopencv-ocl2.4 libopencv-legacy2.4 libopencv-ml2.4 libopencv-video2.4 libopencv-videostab2.4 libopencv-objdetect2.4 libopencv-calib3d2.4 
+
+#https://askubuntu.com/questions/701246/libpng16-so-16-not-found-how-to-get-it?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+# seems like this library is missing no matter what i do, can't find any package with it, so im going to compile and install myself
+
+#https://github.com/Tes3awy/OpenCV-3.2.0-Compiling-on-Raspberry-Pi
+
+#https://github.com/jabelone/OpenCV-for-Pi
+sudo apt-get install libqtgui4
+sudo apt-get install libqt4-test 
+
+
+#set up auto wlan / lan and static ips
+
+
+# issue with tensorflow.contrib
+tensorflow.python.framework.errors_impl.NotFoundError: /home/pi/res/lib/python3.5/site-packages/tensorflow/contrib/data/python/ops/../../_prefetching_ops.so: undefined symbol: _ZN6google8protobuf8internal26fixed_address_empty_stringB5cxx11E

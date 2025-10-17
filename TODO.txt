@@ -1,0 +1,32 @@
+InceptionNN2:
+	image_size:  224x224
+	nrof_params: 7,472,144
+	
+InceptionNN4Small2V1
+	image_size:  96x96
+	nrof_params: 3,733,968
+
+InceptionResNetV1: 
+	image_size:  182x182
+	nrof_params: 22,808,144
+	
+InceptionResNetV1Small:
+	image_size:  96x96
+	nrof_params: 22,779,312
+
+
+72078 seconds to create vgg_face2_train 96x96
+454 seconds to create lfw 96x96
+
+TODO: 
+freeze graph and put on raspberry pi
+
+consider cosine loss vs euclidian distance squared
+consider combining datasets facescrub & casia & VGG Faces & VGG Faces2
+analyze, design, and implement class structure
+run profiling test to see graph execution times
+add utility functions to FaceNetModel (batch images, compare, etc.)
+consider different facial crop options (Dlib OUTER_EYES_AND_NOSE vs INNER_EYES_AND_BOTTOM_LIP, MTCNN)
+consider significantly lower resolution (96x96)
+consider different optimizers (from ADAGRAD to RMSProp, ADAM, etc.)
+consider Pairwise Triplet loss and selection

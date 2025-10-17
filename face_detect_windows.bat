@@ -1,0 +1,1 @@
+python3 face_detect.py --threshold 0.925 -cx 1280 -cy 720 -ux 1280 -uy 720 --ident_store_path identity-store.pkl -kw 6 -kf 26 --fullscreen
