@@ -6,12 +6,7 @@ This is a repository for my research on FaceNet for real-time face recognition.
 
 <!-- video of face recognition -->
 
-<video 
-src="https://cdn.maxnlp.ai/videos/face-pi.mp4"
-width="100%"
-height="100%"
-controls
-/>
+![demo video](https://cdn.maxnlp.ai/videos/face-pi.mp4)
 
 ## Learn More
 
